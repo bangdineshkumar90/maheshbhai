@@ -3,91 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maheshbhai Seasons Shopee - Latur | महेशभाई सीझन्स शॉपी</title>
+    <title>Maheshbhai Seasons Shopee - Latur</title>
     <style>
-        /* --- RESET & FONTS --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            line-height: 1.6; 
-            color: #333; 
-            background-color: #fff5e6; /* Warm Festive Background */
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #fff5e6; 
+            color: #333;
         }
-        
-        /* --- FESTIVE COLORS --- */
-        :root {
-            --primary: #b71c1c; /* Deep Festive Red */
-            --secondary: #fbc02d; /* Marigold Yellow/Gold */
-            --dark: #4a148c; /* Deep Purple */
-            --light: #fff;
-            --border-color: #e65100;
-        }
-
-        /* --- HEADER & NAV --- */
-        header { background: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0.8rem 1rem; }
-        .logo { font-size: 1.4rem; font-weight: bold; color: var(--secondary); text-shadow: 1px 1px #000;}
-        .nav-links a { color: var(--light); text-decoration: none; margin-left: 15px; font-weight: bold; font-size: 0.9rem; }
-        .contact-btn { 
-            background: var(--secondary); color: var(--primary); padding: 0.5rem 1rem; 
-            border-radius: 20px; text-decoration: none; font-weight: bold; border: 2px solid var(--light);
-        }
-
-        /* --- HERO SECTION (BANNER) --- */
-        .hero {
-            /* IMPORTANT: This looks for the file you uploaded named banner.jpg */
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('banner.jpg');
-            background-size: cover;
-            background-position: center;
-            /* Fallback color if image doesn't load */
-            background-color: var(--primary);
-            min-height: 70vh; /* Taller banner to fit description */
-            color: var(--light);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        header {
+            background-color: #b71c1c;
+            color: white;
+            padding: 15px;
             text-align: center;
-            padding: 1rem;
-            border-bottom: 5px solid var(--secondary);
         }
-        .hero h1 { 
-            font-size: 2.8rem; 
-            margin-bottom: 1rem; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
-            color: var(--secondary); 
-            font-weight: 800;
+        .hero {
+            background-color: #b71c1c; /* Red Background instead of Image */
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-bottom: 5px solid #fbc02d;
         }
-
-        /* --- DESCRIPTION BOX STYLE --- */
+        h1 { margin: 0; font-size: 2.5rem; color: #fbc02d; }
         .desc-box {
-            background: rgba(0, 0, 0, 0.7); 
-            padding: 2rem; 
-            border-radius: 15px; 
-            max-width: 800px; 
-            width: 90%;
-            margin-top: 10px; 
-            border: 2px solid var(--secondary);
-            backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            border-radius: 10px;
+            border: 1px solid #fbc02d;
         }
-        .desc-eng {
-            font-size: 1.1rem; 
-            margin-bottom: 15px; 
-            color: #fff; 
-            line-height: 1.6;
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
         }
-        .desc-mar {
-            font-size: 1.25rem; 
-            color: #ffeb3b; 
-            line-height: 1.6; 
-            font-weight: 500;
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
-        .divider {
-            border: 0; 
-            border-top: 1px dashed rgba(255,255,255,0.5); 
-            margin: 15px 0;
+        .card-header {
+            background: #b71c1c;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
         }
+        .card-body { padding: 15px; }
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .btn {
+            background: #fbc02d;
+            color: #b71c1c;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
 
-        /* --- SECTIONS & GRIDS --- */
-        .language-section { padding: 3rem 1rem; border-bottom: 3px dashed var(--border-color); }
-        .marathi-section { background-color:
+    <header>
+        Call Now: <a href="tel:9960835283" style="color: yellow; text-decoration: none;">9960835283</a>
+    </header>
+
+    <div class="hero">
+        <h1>Maheshbhai Seasons Shopee</h1>
+        <div class="desc-box">
+            <p><strong>Latur's Trusted Choice!</strong><br>From Air Coolers to Fireworks, we have everything.</p>
+            <hr style="border-top: 1px dashed white;">
+            <p style="font-size: 1.2rem;"><strong>लातूरचे आपले विश्वासू सीझन्स स्टोअर!</strong><br>कुलर्स, राख्या, गणपती मूर्ती आणि फटाके एकाच छताखाली.</p>
+        </div>
+        <a href="tel:9960835283" class="btn">📞 Call Us / कॉल करा</a>
+    </div>
+
+    <h2 style="text-align: center; color: #b71c1c; margin-top: 30px;">Our Products / आमचे प्रोडक्ट</h2>
+
+    <div class="card-container">
+        <div class="card">
+            <div class="card-header">☀️ Summer / उन्हाळा</div>
+            <div class="card-body">
+                <h3>Air Coolers</h3>
+                <p>Best Quality Coolers</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">🎁 Rakhi / रक्षाबंधन</div>
+            <div class="card-body">
+                <h3>Fancy Rakhis</h3>
+                <p>Wholesale & Retail</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">🐘 Ganesh Utsav / गणेशोत्सव</div>
+            <div class="card-body">
+                <h3>Gauri - Ganesh Idols</h3>
+                <p>Decoration Sets Available</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">💥 Diwali / दिवाळी</div>
+            <div class="card-body">
+                <h3>Fireworks (Fatake)</h3>
+                <p>Shop No 4, Rajasthan School Ground</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; background: #eee; padding: 20px; margin: 20px;">
+        <h3>📍 Addresses / पत्ता</h3>
+        <p><strong>Main Shop:</strong> Opp. Tapdiya Market, Hanuman Chowk, Latur.</p>
+        <p><strong>Fireworks Shop:</strong> Rajasthan Highschool Ground, Latur.</p>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 Maheshbhai Seasons Shopee, Latur.
+    </div>
+
+</body>
+</html>
