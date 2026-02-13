@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maheshbhai Seasons Shopee - Latur</title>
+    <title>Maheshbhai Seasons Shopee - Latur | महेशभाई सीझन्स शॉपी</title>
     <style>
         /* --- RESET & FONTS --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,34 +11,37 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             line-height: 1.6; 
             color: #333; 
-            background-color: #fff9f0; /* Warm background */
+            background-color: #fff5e6; /* Warm Festive Background */
         }
         
-        /* --- COLORS --- */
+        /* --- FESTIVE COLORS --- */
         :root {
-            --primary: #d35400; /* Festive Orange */
-            --secondary: #f39c12; /* Gold/Yellow */
-            --dark: #2c3e50;
+            --primary: #b71c1c; /* Deep Festive Red */
+            --secondary: #fbc02d; /* Marigold Yellow/Gold */
+            --dark: #4a148c; /* Deep Purple */
             --light: #fff;
+            --border-color: #e65100;
         }
 
         /* --- HEADER & NAV --- */
-        header { background: var(--light); box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 1rem; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
+        header { background: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0.8rem 1rem; }
+        .logo { font-size: 1.4rem; font-weight: bold; color: var(--secondary); text-shadow: 1px 1px #000;}
+        .nav-links a { color: var(--light); text-decoration: none; margin-left: 15px; font-weight: bold; font-size: 0.9rem; }
         .contact-btn { 
-            background: var(--primary); color: var(--light); padding: 0.5rem 1.2rem; 
-            border-radius: 20px; text-decoration: none; font-weight: bold;
+            background: var(--secondary); color: var(--primary); padding: 0.5rem 1rem; 
+            border-radius: 20px; text-decoration: none; font-weight: bold; border: 2px solid var(--light);
         }
 
         /* --- HERO SECTION (BANNER) --- */
         .hero {
-            /* If you uploaded the image, uncomment the line below: */
-            /* background-image: url('banner.jpg'); */
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1514222709107-a180c68d72b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            /* IMPORTANT: This looks for the file you uploaded named banner.jpg */
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('banner.jpg');
             background-size: cover;
             background-position: center;
-            height: 60vh;
+            /* Fallback color if image doesn't load */
+            background-color: var(--primary);
+            height: 55vh;
             color: var(--light);
             display: flex;
             flex-direction: column;
@@ -46,36 +49,45 @@
             align-items: center;
             text-align: center;
             padding: 1rem;
+            border-bottom: 5px solid var(--secondary);
         }
-        .hero h1 { font-size: 3rem; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .hero p { font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: 300; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); color: var(--secondary); }
+        .hero p { font-size: 1.3rem; font-weight: 500; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
 
-        /* --- PRODUCTS GRID --- */
-        .section-title { text-align: center; font-size: 2.2rem; margin: 3rem 0 1rem; color: var(--primary); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto; padding: 2rem; }
+        /* --- SECTIONS & GRIDS --- */
+        .language-section { padding: 2rem 1rem; border-bottom: 3px dashed var(--border-color); }
+        .marathi-section { background-color: #ffecb3; } /* Slightly different background for Marathi */
+
+        .section-title { text-align: center; font-size: 2rem; margin-bottom: 2rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
         
         .card { 
-            background: var(--light); border-radius: 10px; overflow: hidden; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s; text-align: center;
+            background: var(--light); border-radius: 15px; overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s; text-align: center;
+            border: 2px solid var(--secondary);
         }
-        .card:hover { transform: translateY(-5px); }
-        .card-header { background: var(--primary); color: white; padding: 1rem; font-size: 1.25rem; font-weight: bold; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .card-header { background: var(--primary); color: var(--secondary); padding: 1rem; font-size: 1.2rem; font-weight: bold; }
         .card-body { padding: 1.5rem; }
-        .card-body p { margin-bottom: 0.5rem; color: #555; }
+        .card-body h3 { margin-bottom: 0.5rem; color: var(--dark); }
+        .card-body p { margin-bottom: 0.5rem; color: #555; font-size: 0.95rem; }
 
-        /* --- LOCATIONS (IMPORTANT FOR YOU) --- */
-        .locations { background: var(--dark); color: var(--light); padding: 3rem 1rem; text-align: center; }
-        .location-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1000px; margin: 2rem auto 0; }
-        .loc-box { border: 1px solid rgba(255,255,255,0.2); padding: 2rem; border-radius: 10px; }
+        /* --- LOCATIONS --- */
+        .locations-container { background: var(--dark); color: var(--light); padding: 3rem 1rem; text-align: center; margin-top: 2rem; border-radius: 20px; }
+        .location-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 900px; margin: 2rem auto 0; }
+        .loc-box { border: 2px dashed var(--secondary); padding: 1.5rem; border-radius: 10px; background: rgba(0,0,0,0.2); }
         .loc-box h3 { color: var(--secondary); margin-bottom: 1rem; }
-        .phone { font-size: 1.2rem; font-weight: bold; margin-top: 1rem; display: block; color: var(--secondary); }
+        .phone { font-size: 1.2rem; font-weight: bold; margin-top: 1rem; display: block; color: var(--secondary); text-decoration: none; }
 
         /* --- FOOTER --- */
-        footer { text-align: center; padding: 1.5rem; background: #222; color: #777; font-size: 0.9rem; }
+        footer { text-align: center; padding: 1.5rem; background: var(--primary); color: var(--secondary); font-size: 0.9rem; font-weight: bold;}
         
         /* Mobile adjustment */
         @media(max-width: 600px) {
-            .hero h1 { font-size: 2rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 1.1rem; }
+            .nav-links { display: none; } /* Hide nav links on small screens for simplicity */
         }
     </style>
 </head>
@@ -84,82 +96,126 @@
     <header>
         <nav>
             <div class="logo">Maheshbhai.com</div>
-            <a href="tel:9960835283" class="contact-btn">📞 Call Now</a>
+            <div class="nav-links">
+                <a href="#english">English</a>
+                <a href="#marathi">मराठी</a>
+            </div>
+            <a href="tel:9960835283" class="contact-btn">📞 Call / कॉल करा</a>
         </nav>
     </header>
 
     <div class="hero">
         <h1>Maheshbhai Seasons Shopee</h1>
-        <p>Amchi Chotisi Shop - Serving Latur for Every Season</p>
+        <p>Amchi Chotisi Shop - Latur</p>
+        <p>आमची छोटीशी शॉप - लातूर</p>
     </div>
 
-    <h2 class="section-title">Our Seasonal Items</h2>
-    <div class="grid">
-        <div class="card">
-            <div class="card-header">☀️ Summer Special</div>
-            <div class="card-body">
-                <h3>Air Coolers</h3>
-                <p>High quality coolers to beat the Latur heat.</p>
-                <p>Spare parts & Service available.</p>
+    <div id="english" class="language-section">
+        <h2 class="section-title">✨ Seasonal Collection (English) ✨</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">☀️ Summer Special</div>
+                <div class="card-body">
+                    <h3>Air Coolers</h3>
+                    <p>High quality coolers to beat the heat.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">🎁 Raksha Bandhan</div>
+                <div class="card-body">
+                    <h3>Fancy Rakhis</h3>
+                    <p>Wide variety of latest designs.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">🐘 Ganesh Chaturthi</div>
+                <div class="card-body">
+                    <h3>Gauri - Ganesh Idols</h3>
+                    <p>Beautiful statues & full decoration sets.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">💥 Diwali Dhamaka</div>
+                <div class="card-body">
+                    <h3>Fireworks</h3>
+                    <p>Best quality crackers at best rates.</p>
+                </div>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-header">🎁 Raksha Bandhan</div>
-            <div class="card-body">
-                <h3>Fancy Rakhis</h3>
-                <p>Wide variety of designs.</p>
-                <p>Wholesale & Retail.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">🐘 Ganesh Chaturthi</div>
-            <div class="card-body">
-                <h3>Gauri - Ganesh Statues</h3>
-                <p>Eco-friendly & Painted idols.</p>
-                <p>Full Decoration Sets available.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">✨ Diwali Dhamaka</div>
-            <div class="card-body">
-                <h3>Fireworks (Fatake)</h3>
-                <p>Best quality crackers at best rates.</p>
-                <p>Available at our Ground Shop.</p>
+        <div class="locations-container">
+            <h2 style="color: var(--secondary);">📍 Our Addresses in Latur</h2>
+            <div class="location-grid">
+                <div class="loc-box">
+                    <h3>🏠 Main Shop</h3>
+                    <p>(Coolers, Rakhis, Decor)</p>
+                    <p>Opp. Tapdiya Market, Hanuman Chowk.</p>
+                    <a href="tel:9960835283" class="phone">📞 9960835283</a>
+                </div>
+                <div class="loc-box">
+                    <h3>💥 Fireworks Shop</h3>
+                    <p>(Special Fataka Counter)</p>
+                    <p>Shop No. 4, Rajasthan Highschool Ground.</p>
+                    <a href="tel:9960835283" class="phone">📞 9960835283</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="locations">
-        <h2>📍 Visit Our Stores in Latur</h2>
-        <div class="location-grid">
-            
-            <div class="loc-box">
-                <h3>🏠 Maheshbhai Seasons Shopee</h3>
-                <p>(For Coolers, Rakhis, Idols & Decor)</p>
-                <br>
-                <p>Opp. Tapdiya Market,</p>
-                <p>Hanuman Chowk, Latur.</p>
-                <a href="tel:9960835283" class="phone">📞 9960835283</a>
+    <div id="marathi" class="language-section marathi-section">
+        <h2 class="section-title">✨ सणासुदीचे कलेक्शन (मराठी) ✨</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">☀️ उन्हाळा स्पेशल</div>
+                <div class="card-body">
+                    <h3>एअर कुलर्स (Air Coolers)</h3>
+                    <p>लातूरच्या उन्हासाठी उत्तम क्वालिटीचे कुलर्स.</p>
+                </div>
             </div>
-
-            <div class="loc-box">
-                <h3>💥 Firework Shop</h3>
-                <p>(Special Counter for Fatake)</p>
-                <br>
-                <p>Shop No. 4,</p>
-                <p>Rajasthan Highschool Ground,</p>
-                <p>Latur.</p>
-                <a href="tel:9960835283" class="phone">📞 9960835283</a>
+            <div class="card">
+                <div class="card-header">🎁 रक्षाबंधन</div>
+                <div class="card-body">
+                    <h3>फॅन्सी राख्या</h3>
+                    <p>नवीन डिझाइन्सची मोठी व्हरायटी उपलब्ध.</p>
+                </div>
             </div>
+            <div class="card">
+                <div class="card-header">🐘 गणेशोत्सव</div>
+                <div class="card-body">
+                    <h3>गौरी - गणपती मूर्ती</h3>
+                    <p>सुबक मूर्ती आणि सजावटीचे पूर्ण साहित्य.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">💥 दिवाळी धमाका</div>
+                <div class="card-body">
+                    <h3>फटाके (Fireworks)</h3>
+                    <p>उत्तम क्वालिटीचे फटाके योग्य दरात.</p>
+                </div>
+            </div>
+        </div>
 
+        <div class="locations-container" style="background: var(--primary);">
+            <h2 style="color: var(--secondary);">📍 आमचे लातूरमधील पत्ते</h2>
+            <div class="location-grid">
+                <div class="loc-box">
+                    <h3>🏠 मुख्य दुकान</h3>
+                    <p>(कुलर्स, राख्या आणि सजावटीसाठी)</p>
+                    <p>तापडिया मार्केट समोर, हनुमान चौक.</p>
+                    <a href="tel:9960835283" class="phone">📞 9960835283</a>
+                </div>
+                <div class="loc-box">
+                    <h3>💥 फटाक्यांचे दुकान</h3>
+                    <p>(स्पेशल फटाका काउंटर)</p>
+                    <p>दुकान नं ४, राजस्थान हायस्कूल ग्राउंड.</p>
+                    <a href="tel:9960835283" class="phone">📞 9960835283</a>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Maheshbhai Seasons Shopee, Latur.</p>
+        <p>&copy; 2026 Maheshbhai Seasons Shopee, Latur. | महेशभाई सीझन्स शॉपी, लातूर.</p>
     </footer>
 
 </body>
