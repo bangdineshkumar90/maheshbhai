@@ -4,138 +4,272 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maheshbhai Seasons Shopee - Latur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Yatra+One&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            background-color: #fff5e6; 
-            color: #333;
+        :root {
+            --saffron: #ff9933;
+            --red: #b71c1c;
+            --gold: #ffd700;
+            --dark: #2c0e0e;
         }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff8e1; /* Cream Background */
+            color: var(--dark);
+        }
+
+        /* --- HEADER --- */
         header {
-            background-color: #b71c1c;
-            color: white;
-            padding: 15px;
-            text-align: center;
+            background: linear-gradient(to right, #800000, #b71c1c);
+            color: var(--gold);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--gold);
         }
+
+        .logo {
+            font-family: 'Yatra One', cursive; /* Traditional Font */
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .call-btn {
+            background: var(--gold);
+            color: #800000;
+            padding: 8px 15px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-family: 'Yatra One', cursive;
+        }
+
+        /* --- BANNER SECTION --- */
         .hero {
-            background-color: #b71c1c; /* Red Background instead of Image */
-            color: white;
-            padding: 50px 20px;
+            /* Using a Direct Gradient + Pattern so it NEVER looks blank */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1516283565-1d48858716f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            border-bottom: 5px solid #fbc02d;
-        }
-        h1 { margin: 0; font-size: 2.5rem; color: #fbc02d; }
-        .desc-box {
-            background: rgba(0,0,0,0.2);
+            color: white;
             padding: 20px;
-            margin: 20px auto;
-            max-width: 600px;
-            border-radius: 10px;
-            border: 1px solid #fbc02d;
+            border-bottom: 5px solid var(--saffron);
+            position: relative;
         }
-        .card-container {
+
+        /* Decorative Border Pattern */
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: radial-gradient(circle, var(--gold) 5px, transparent 6px);
+            background-size: 20px 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Rozha One', serif;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--gold);
+            text-shadow: 3px 3px 0px #800000;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            background: rgba(128, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid var(--gold);
+        }
+
+        /* --- PRODUCT CARDS --- */
+        .section-title {
+            text-align: center;
+            font-family: 'Yatra One', cursive;
+            color: var(--red);
+            font-size: 2.2rem;
+            margin: 40px 0 20px;
+            text-transform: uppercase;
+        }
+
+        .container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
+
         .card {
             background: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            width: 280px;
             overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            border: 2px solid var(--saffron);
         }
-        .card-header {
-            background: #b71c1c;
-            color: white;
-            padding: 10px;
-            font-weight: bold;
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
-        .card-body { padding: 15px; }
-        .footer {
-            background: #333;
-            color: white;
+
+        .card-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .card-body {
+            padding: 15px;
             text-align: center;
-            padding: 10px;
-            margin-top: 20px;
         }
-        .btn {
-            background: #fbc02d;
-            color: #b71c1c;
-            padding: 10px 20px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 10px;
+
+        .card h3 {
+            color: var(--red);
+            font-family: 'Rozha One', serif;
+            margin: 0 0 10px;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .om-symbol {
+            font-size: 2rem;
+            color: var(--saffron);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* --- FOOTER / CONTACT --- */
+        .footer-section {
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 40px;
+            border-top: 5px solid var(--gold);
+        }
+
+        .address-box {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            margin: 10px auto;
+            max-width: 600px;
+            border-radius: 10px;
+            border: 1px dashed var(--saffron);
+        }
+
+        .address-box h3 {
+            color: var(--gold);
+            font-family: 'Yatra One', cursive;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        Call Now: <a href="tel:9960835283" style="color: yellow; text-decoration: none;">9960835283</a>
+        <div class="logo">Maheshbhai 🕉️</div>
+        <a href="tel:9960835283" class="call-btn">📞 Call Now</a>
     </header>
 
     <div class="hero">
         <h1>Maheshbhai Seasons Shopee</h1>
-        <div class="desc-box">
-            <p><strong>Latur's Trusted Choice!</strong><br>From Air Coolers to Fireworks, we have everything.</p>
-            <hr style="border-top: 1px dashed white;">
-            <p style="font-size: 1.2rem;"><strong>लातूरचे आपले विश्वासू सीझन्स स्टोअर!</strong><br>कुलर्स, राख्या, गणपती मूर्ती आणि फटाके एकाच छताखाली.</p>
-        </div>
-        <a href="tel:9960835283" class="btn">📞 Call Us / कॉल करा</a>
+        <p>
+            <strong>Latur's Pride | लातूरची शान</strong><br>
+            Every Season, Every Reason to Celebrate!<br>
+            प्रत्येक सणाचा आनंद आता द्विगुणित करा महेशभाईंसोबत.
+        </p>
     </div>
 
-    <h2 style="text-align: center; color: #b71c1c; margin-top: 30px;">Our Products / आमचे प्रोडक्ट</h2>
+    <h2 class="section-title">✨ Our Collections / आमचे कलेक्शन ✨</h2>
 
-    <div class="card-container">
+    <div class="container">
         <div class="card">
-            <div class="card-header">☀️ Summer / उन्हाळा</div>
+            <img src="https://images.unsplash.com/photo-1547496502-ffa222d02b2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Summer" class="card-img">
             <div class="card-body">
-                <h3>Air Coolers</h3>
-                <p>Best Quality Coolers</p>
+                <h3>☀️ Summer / उन्हाळा</h3>
+                <p>High Quality Air Coolers for Latur Heat.</p>
+                <p><strong>गारेगार एअर कुलर्स</strong></p>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-header">🎁 Rakhi / रक्षाबंधन</div>
+            <img src="https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Rakhi" class="card-img">
             <div class="card-body">
-                <h3>Fancy Rakhis</h3>
-                <p>Wholesale & Retail</p>
+                <h3>🎁 Rakhi / रक्षाबंधन</h3>
+                <p>Traditional & Fancy Rakhis.</p>
+                <p><strong>सुबक आणि आकर्षक राख्या</strong></p>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-header">🐘 Ganesh Utsav / गणेशोत्सव</div>
+            <img src="https://images.unsplash.com/photo-1567591414240-e13630603713?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Ganesh" class="card-img">
             <div class="card-body">
-                <h3>Gauri - Ganesh Idols</h3>
-                <p>Decoration Sets Available</p>
+                <h3>🐘 Ganesh Utsav / गणेशोत्सव</h3>
+                <p>Eco-friendly Ganesh Idols & Decor.</p>
+                <p><strong>सुंदर गणेश मूर्ती आणि सजावट</strong></p>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-header">💥 Diwali / दिवाळी</div>
+            <img src="https://images.unsplash.com/photo-1476158085676-eb3055d8312e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Diwali" class="card-img">
             <div class="card-body">
-                <h3>Fireworks (Fatake)</h3>
-                <p>Shop No 4, Rajasthan School Ground</p>
+                <h3>💥 Diwali / दिवाळी</h3>
+                <p>Fireworks & Crackers (Fatake).</p>
+                <p><strong>धडाकेबाज फटाके (होलसेल दरात)</strong></p>
             </div>
         </div>
     </div>
 
-    <div style="text-align: center; background: #eee; padding: 20px; margin: 20px;">
-        <h3>📍 Addresses / पत्ता</h3>
-        <p><strong>Main Shop:</strong> Opp. Tapdiya Market, Hanuman Chowk, Latur.</p>
-        <p><strong>Fireworks Shop:</strong> Rajasthan Highschool Ground, Latur.</p>
-    </div>
+    <div class="footer-section">
+        <h2 style="font-family: 'Yatra One', cursive; margin-bottom: 20px;">📍 Visit Us / आम्हाला भेट द्या</h2>
+        
+        <div class="address-box">
+            <h3>🏠 Main Shop</h3>
+            <p><strong>Maheshbhai Seasons Shopee</strong></p>
+            <p>Opp. Tapdiya Market, Hanuman Chowk, Latur.</p>
+            <a href="tel:9960835283" class="call-btn" style="display:inline-block; margin-top:10px;">📞 9960835283</a>
+        </div>
 
-    <div class="footer">
-        &copy; 2026 Maheshbhai Seasons Shopee, Latur.
+        <div class="address-box">
+            <h3>💥 Fireworks Shop</h3>
+            <p><strong>Special Counter for Fatake</strong></p>
+            <p>Shop No. 4, Rajasthan Highschool Ground, Latur.</p>
+        </div>
+
+        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.7;">&copy; 2026 Maheshbhai Seasons Shopee, Latur.</p>
     </div>
 
 </body>
