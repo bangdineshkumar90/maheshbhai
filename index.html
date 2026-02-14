@@ -125,7 +125,14 @@
     }
   </style>
 </head>
-
+<script>
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Added to cart!");
+}
+</script>
 <body>
 
 <header>MAHESHBHAI STORE</header>
