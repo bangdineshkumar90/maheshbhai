@@ -1,155 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maheshbhai Store</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maheshbhai Store</title>
 
-  <!-- Premium Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: white;
-    }
-
-    header {
-      padding: 20px;
-      text-align: center;
-      font-size: 28px;
-      font-weight: 700;
-      background: rgba(0,0,0,0.6);
-      color: #D4AF37;
-      letter-spacing: 2px;
-    }
-
-    nav {
-      text-align: center;
-      padding: 10px;
-      background: rgba(0,0,0,0.4);
-    }
-
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    nav a:hover {
-      color: #D4AF37;
-    }
-
-    .hero {
-      height: 400px;
-      background: url('ganpati.jpg') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background-blend-mode: darken;
-      background-color: rgba(0,0,0,0.5);
-    }
-
-    .hero h1 {
-      font-size: 40px;
-      color: #D4AF37;
-    }
-
-    section {
-      padding: 40px 20px;
-    }
-
-    h2 {
-      text-align: center;
-      color: #D4AF37;
-      margin-bottom: 30px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 15px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    }
-
-    .card h3 {
-      margin: 10px 0;
-      color: #fff;
-    }
-
-    .card p {
-      color: #D4AF37;
-      font-size: 18px;
-      font-weight: 500;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: rgba(0,0,0,0.5);
-      font-size: 14px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background: #D4AF37;
-      color: black;
-      border-radius: 25px;
-      text-decoration: none;
-      margin-top: 10px;
-      font-weight: 500;
-    }
-
-    .btn:hover {
-      background: white;
-    }
-  </style>
-</head>
-<script>
-function addToCart(product) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push(product);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Added to cart!");
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
-</script>
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:#0f0f0f;
+  color:white;
+}
+
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 60px;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(10px);
+  position:fixed;
+  width:100%;
+  z-index:1000;
+}
+
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:30px;
+  color:#FFD700;
+}
+
+nav a{
+  color:white;
+  margin-left:25px;
+  text-decoration:none;
+  font-weight:400;
+  transition:0.3s;
+}
+
+nav a:hover{
+  color:#FFD700;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  background:url('banner.jpg') center/cover no-repeat;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.hero-overlay{
+  width:100%;
+  height:100%;
+  background:linear-gradient(
+    to right,
+    rgba(122,31,31,0.8),
+    rgba(255,153,51,0.6),
+    rgba(15,48,87,0.6),
+    rgba(27,27,47,0.8)
+  );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+}
+
+.hero-content h1{
+  font-size:60px;
+  font-family:'Playfair Display',serif;
+  color:#FFD700;
+}
+
+.hero-content p{
+  margin-top:20px;
+  font-size:22px;
+}
+
+.shop-btn{
+  margin-top:30px;
+  padding:14px 35px;
+  background:#FFD700;
+  border:none;
+  border-radius:30px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.shop-btn:hover{
+  background:white;
+  transform:scale(1.05);
+}
+
+/* PRODUCTS SECTION */
+.products{
+  padding:80px 40px;
+  background:#111;
+}
+
+.section-title{
+  text-align:center;
+  font-size:36px;
+  margin-bottom:60px;
+  color:#FFD700;
+  font-family:'Playfair Display',serif;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+  max-width:1200px;
+  margin:auto;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  padding:20px;
+  text-align:center;
+  transition:0.4s;
+  box-shadow:0 0 20px rgba(255,215,0,0.1);
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 15px 40px rgba(0,0,0,0.6);
+}
+
+.card img{
+  width:100%;
+  border-radius:15px;
+  margin-bottom:15px;
+}
+
+.old-price{
+  text-decoration:line-through;
+  opacity:0.6;
+}
+
+.new-price{
+  color:#FFD700;
+  font-size:20px;
+  font-weight:600;
+}
+
+.add-btn{
+  margin-top:10px;
+  padding:8px 18px;
+  background:#FFD700;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:500;
+}
+
+.add-btn:hover{
+  background:white;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:30px;
+  background:#000;
+  opacity:0.9;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  header{
+    flex-direction:column;
+  }
+  nav{
+    margin-top:10px;
+  }
+  .hero-content h1{
+    font-size:38px;
+  }
+  .hero-content p{
+    font-size:18px;
+  }
+}
+</style>
+</head>
+
 <body>
 
-<header>MAHESHBHAI STORE</header>
-
-<nav>
-  <a href="index.html">Home</a>
-  <a href="shop.html">Shop</a>
-  <a href="cart.html">Cart</a>
-  <a href="login.html">Login</a>
-</nav>
+<header>
+  <div class="logo">Maheshbhai Store</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html">Cart</a>
+    <a href="admin-login.html">Admin</a>
+  </nav>
+</header>
 
 <div class="hero">
-  <h1>Ganpati Bappa Morya 🙏<br>Premium Festival Offers</h1>
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <h1>Festival Mega Sale 🎉</h1>
+      <p>Ganpati | Rakhi | Fireworks | Appliances</p>
+      <a href="shop.html">
+        <button class="shop-btn">Shop Now</button>
+      </a>
+    </div>
+  </div>
 </div>
 
-<section>
-  <h2>🔥 Special Offers</h2>
+<section class="products">
+  <div class="section-title">🔥 Special Offers</div>
   <div id="offer-products" class="grid"></div>
 </section>
 
@@ -157,7 +232,6 @@ function addToCart(product) {
   © 2026 Maheshbhai Store | Designed by Dinesh Bang
 </footer>
 
-<!-- Firebase Offer Script -->
 <script type="module" src="js/offers.js"></script>
 
 </body>
