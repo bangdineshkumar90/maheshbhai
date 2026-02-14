@@ -1,34 +1,159 @@
-import { auth } from "./js/firebase-config.js";
-import { onAuthStateChanged }
-from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel - Maheshbhai Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      color: gold;
+    }
+
+    input {
+      padding: 8px;
+      margin: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      padding: 8px 12px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .add-btn { background: gold; }
+    .delete-btn { background: crimson; color: white; }
+    .update-btn { background: dodgerblue; color: white; }
+
+    .product-box {
+      background: #222;
+      margin: 15px auto;
+      padding: 15px;
+      width: 300px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<div>
+  <input type="text" id="name" placeholder="Product Name">
+  <input type="number" id="price" placeholder="Price">
+  <input type="number" id="discount" placeholder="Discount Price">
+  <input type="text" id="image" placeholder="Image file name (ganpati.jpg)">
+  <label>
+    Offer <input type="checkbox" id="offer">
+  </label>
+  <br>
+  <button class="add-btn" onclick="addProduct()">Add Product</button>
+</div>
+
+<hr>
+
+<h3>All Products</h3>
+<div id="product-list"></div>
+
+<script type="module">
+
+import { db } from "./js/firebase-config.js";
+import { auth } from "./js/firebase-config.js";
+
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const ADMIN_EMAIL = "YOUR_ADMIN_EMAIL"; // replace this
+
+// 🔐 Protect Page
 onAuthStateChanged(auth, (user) => {
-  if (!user || user.email !== "bangdineshkumar90@gmail.com") {
+  if (!user || user.email !== ADMIN_EMAIL) {
     alert("Access Denied");
     window.location.href = "admin-login.html";
   }
 });
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Admin | Maheshbhai</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+// ➕ Add Product
+window.addProduct = async function () {
+  await addDoc(collection(db, "products"), {
+    name: document.getElementById("name").value,
+    price: Number(document.getElementById("price").value),
+    discountPrice: Number(document.getElementById("discount").value),
+    image: document.getElementById("image").value,
+    offer: document.getElementById("offer").checked
+  });
 
-<h2 style="text-align:center;color:#D4AF37;">Add Product</h2>
+  alert("Product Added!");
+  location.reload();
+};
 
-<div class="login-container">
-  <input type="text" id="name" placeholder="Product Name">
-  <input type="number" id="price" placeholder="Price">
-  <input type="text" id="category" placeholder="Category">
-  <input type="text" id="image" placeholder="Image URL">
-  <input type="number" id="stock" placeholder="Stock">
-  <button id="addProduct">Add Product</button>
-</div>
+// 📦 Load Products
+async function loadProducts() {
+  const snapshot = await getDocs(collection(db, "products"));
+  const container = document.getElementById("product-list");
+  container.innerHTML = "";
 
-<script type="module" src="js/admin.js"></script>
+  snapshot.forEach((docSnap) => {
+    const data = docSnap.data();
+    const id = docSnap.id;
+
+    container.innerHTML += `
+      <div class="product-box">
+        <h4>${data.name}</h4>
+        <p>Price: ₹${data.price}</p>
+        <p>Discount: ₹${data.discountPrice}</p>
+        <p>Offer: ${data.offer ? "Yes" : "No"}</p>
+        <button class="delete-btn" onclick="deleteProduct('${id}')">Delete</button>
+        <button class="update-btn" onclick="toggleOffer('${id}', ${!data.offer})">
+          Toggle Offer
+        </button>
+      </div>
+    `;
+  });
+}
+
+// ❌ Delete Product
+window.deleteProduct = async function (id) {
+  await deleteDoc(doc(db, "products", id));
+  alert("Deleted!");
+  location.reload();
+};
+
+// 🔄 Toggle Offer
+window.toggleOffer = async function (id, value) {
+  await updateDoc(doc(db, "products", id), {
+    offer: value
+  });
+  alert("Updated!");
+  location.reload();
+};
+
+loadProducts();
+
+</script>
 
 </body>
 </html>
