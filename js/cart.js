@@ -1,0 +1,1 @@
+console.log("Cart system placeholder - integrate Firebase later");
