@@ -20,8 +20,21 @@ async function loadOffers() {
     div.className = "card";
 
     div.innerHTML = `
+      <img src="${product.image}" style="width:100%;border-radius:10px;">
       <h3>${product.name}</h3>
-      <p>₹${product.price}</p>
+
+      <p style="text-decoration:line-through;color:#ccc;">
+        ₹${product.price}
+      </p>
+
+      <p style="color:#D4AF37;font-size:20px;">
+        ₹${product.discountPrice}
+      </p>
+
+      <button onclick='addToCart(${JSON.stringify(product)})' 
+        style="padding:8px 15px;border:none;background:#D4AF37;border-radius:20px;">
+        Add to Cart
+      </button>
     `;
 
     offerContainer.appendChild(div);
