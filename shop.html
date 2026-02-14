@@ -2,11 +2,173 @@
 <html>
 <head>
   <title>Shop | Maheshbhai</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #121212);
+      color: white;
+    }
+
+    header {
+      background: linear-gradient(90deg, #ff6a00, #ffcc00);
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: black;
+      letter-spacing: 2px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      padding: 40px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.4s ease;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(255,106,0,0.4);
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .discount-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: red;
+      color: white;
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 50px;
+      font-weight: bold;
+    }
+
+    .title {
+      font-size: 20px;
+      margin: 15px 0 5px;
+    }
+
+    .price {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #aaa;
+      margin-right: 10px;
+    }
+
+    .new-price {
+      color: #ffcc00;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, #ff6a00, #ffcc00);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      margin-top: 40px;
+    }
+
+  </style>
 </head>
+
 <body>
-<h2 style="text-align:center;color:#D4AF37;">Our Products</h2>
-<div id="product-list" class="grid"></div>
-<script type="module" src="js/products.js"></script>
+
+<header>🔥 Premium Festive Collection 🔥</header>
+
+<div class="products" id="product-list">
+  <!-- Products Load From Firestore -->
+</div>
+
+<footer>
+  © 2026 Maheshbhai Store | Designed by Dinesh Bang
+</footer>
+
+<script type="module">
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyAf8oqme5drWgAxCdaFnMPWSYszsHU2odE",
+  authDomain: "maheshbhai-store.firebaseapp.com",
+  projectId: "maheshbhai-store",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const productList = document.getElementById("product-list");
+
+  async function loadProducts() {
+    const querySnapshot = await getDocs(collection(db, "products"));
+
+    querySnapshot.forEach((doc) => {
+      const product = doc.data();
+
+      const discount = product.oldPrice 
+        ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
+        : 0;
+
+      productList.innerHTML += `
+        <div class="card">
+          ${discount > 0 ? `<div class="discount-badge">${discount}% OFF</div>` : ""}
+          <img src="${product.image}" alt="${product.name}">
+          <div class="title">${product.name}</div>
+          <div class="price">
+            ${product.oldPrice ? `<span class="old-price">₹${product.oldPrice}</span>` : ""}
+            <span class="new-price">₹${product.price}</span>
+          </div>
+          <button class="btn" onclick="alert('Added to Cart')">
+            Add to Cart 🛒
+          </button>
+        </div>
+      `;
+    });
+  }
+
+  loadProducts();
+
+</script>
+
 </body>
 </html>
