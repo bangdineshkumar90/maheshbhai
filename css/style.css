@@ -1,0 +1,10 @@
+
+body {margin:0;font-family:Poppins;background:#111;color:white;}
+header {display:flex;justify-content:space-between;padding:20px;background:#8B0000;}
+.logo h1 {font-family:Playfair Display;color:#D4AF37;margin:0;}
+nav a {color:white;margin-left:20px;text-decoration:none;}
+.hero {height:80vh;display:flex;justify-content:center;align-items:center;background:#8B0000;text-align:center;}
+.hero h2 {color:#D4AF37;font-size:40px;}
+.btn {background:#D4AF37;color:black;padding:10px 20px;text-decoration:none;}
+.grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;padding:20px;}
+.login-container {width:300px;margin:100px auto;background:#1a1a1a;padding:20px;text-align:center;border:1px solid #D4AF37;}
