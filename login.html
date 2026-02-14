@@ -1,17 +1,27 @@
+<h2>Admin Panel</h2>
+
+<input type="text" id="name" placeholder="Product Name">
+<input type="number" id="price" placeholder="Price">
+<input type="number" id="discount" placeholder="Discount Price">
+<input type="text" id="image" placeholder="Image File Name">
+<label>Offer <input type="checkbox" id="offer"></label>
+<button onclick="addProduct()">Add Product</button>
+
 <script type="module">
-import { auth } from "js/firebase-config.js";
-import { signInWithEmailAndPassword } 
-from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { db } from "./js/firebase-config.js";
+import { collection, addDoc }
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-document.getElementById("loginBtn").addEventListener("click", () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+window.addProduct = async function() {
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      alert("Login Successful");
-      window.location.href = "index.html";
-    })
-    .catch(error => alert(error.message));
-});
+  await addDoc(collection(db, "products"), {
+    name: document.getElementById("name").value,
+    price: Number(document.getElementById("price").value),
+    discountPrice: Number(document.getElementById("discount").value),
+    image: document.getElementById("image").value,
+    offer: document.getElementById("offer").checked
+  });
+
+  alert("Product Added!");
+}
 </script>
