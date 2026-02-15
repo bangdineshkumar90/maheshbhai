@@ -1,239 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
+<title>Checkout | Maheshbhai</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Cart - Maheshbhai</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 body{
+  font-family:Poppins,sans-serif;
+  background:#111;
+  color:white;
   margin:0;
-  font-family:'Poppins',sans-serif;
-  background:#fff7f7;
+  padding:20px;
 }
 
-/* HEADER */
-header{
-  background:linear-gradient(90deg,#7a0000,#b30000);
-  padding:15px 40px;
-  color:white;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.logo{
-  font-size:22px;
-  font-weight:700;
-  color:#ffd700;
-}
-nav a{
-  color:white;
-  text-decoration:none;
-  margin-left:20px;
-  font-weight:500;
-}
+h2{text-align:center;}
 
-/* TITLE */
-.cart-title{
-  text-align:center;
-  margin:30px 0;
-  font-size:28px;
-  font-weight:700;
-  color:#7a0000;
-}
-
-/* CART CONTAINER */
-.cart-container{
-  width:90%;
-  max-width:1000px;
+.container{
+  max-width:600px;
   margin:auto;
-  background:white;
-  padding:25px;
-  border-radius:12px;
-  box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
 
-/* CART ITEM */
 .cart-item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid #eee;
-  padding:15px 0;
-}
-
-.cart-item img{
-  width:80px;
-  height:80px;
-  object-fit:cover;
+  background:#222;
+  padding:10px;
+  margin:10px 0;
   border-radius:8px;
 }
 
-.item-details{
-  flex:1;
-  margin-left:20px;
-}
-
-.item-name{
-  font-weight:600;
-  color:#7a0000;
-}
-
-.item-price{
-  font-size:14px;
-  color:#444;
-}
-
-/* QUANTITY */
-.qty-control{
-  display:flex;
-  align-items:center;
-}
-
-.qty-control button{
-  background:#b30000;
-  color:white;
-  border:none;
-  padding:5px 10px;
-  cursor:pointer;
-  border-radius:4px;
-}
-
-.qty-control span{
-  margin:0 10px;
-  font-weight:600;
-}
-
-/* REMOVE */
-.remove-btn{
-  background:#444;
-  color:white;
-  border:none;
-  padding:6px 12px;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-/* TOTAL */
-.cart-total{
-  text-align:right;
-  margin-top:20px;
-  font-size:20px;
-  font-weight:700;
-  color:#7a0000;
-}
-
-/* CHECKOUT */
-.checkout-btn{
-  display:block;
+input,textarea{
   width:100%;
-  margin-top:20px;
+  padding:10px;
+  margin:10px 0;
+  border-radius:8px;
+  border:none;
+}
+
+button{
+  width:100%;
   padding:12px;
-  background:#ffd700;
-  color:#7a0000;
-  font-weight:700;
+  background:#25D366;
   border:none;
   border-radius:8px;
+  font-weight:bold;
   cursor:pointer;
+  color:white;
   font-size:16px;
 }
 
-/* EMPTY */
-.empty{
-  text-align:center;
-  color:#777;
+.total{
+  text-align:right;
   font-size:18px;
-  padding:40px;
+  margin:10px 0;
 }
 </style>
 </head>
+
 <body>
 
-<header>
-  <div class="logo">Maheshbhai</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-  </nav>
-</header>
+<h2>Confirm Your Order</h2>
 
-<h2 class="cart-title">Your Shopping Cart</h2>
+<div class="container" id="cartContainer"></div>
 
-<div class="cart-container" id="cartContainer"></div>
+<div class="container">
+<input type="text" id="name" placeholder="Full Name">
+<input type="text" id="mobile" placeholder="Mobile Number">
+<textarea id="address" placeholder="Delivery Address"></textarea>
+
+<button onclick="placeOrder()">Place Order on WhatsApp</button>
+</div>
 
 <script>
+
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const container = document.getElementById("cartContainer");
 
 function renderCart(){
-  const container = document.getElementById("cartContainer");
-  container.innerHTML = "";
 
-  if(cart.length === 0){
-    container.innerHTML = "<div class='empty'>Your cart is empty 😔</div>";
+  if(cart.length===0){
+    container.innerHTML="<p>Your cart is empty</p>";
     return;
   }
 
-  let total = 0;
+  let total=0;
+  container.innerHTML="";
 
-  cart.forEach((item,index)=>{
-    total += item.price * item.qty;
+  cart.forEach(item=>{
+    total+=item.price*item.qty;
 
-    container.innerHTML += `
+    container.innerHTML+=`
       <div class="cart-item">
-        <img src="${item.image}" alt="">
-        <div class="item-details">
-          <div class="item-name">${item.name}</div>
-          <div class="item-price">₹${item.price}</div>
-        </div>
-
-        <div class="qty-control">
-          <button onclick="changeQty(${index},-1)">-</button>
-          <span>${item.qty}</span>
-          <button onclick="changeQty(${index},1)">+</button>
-        </div>
-
-        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+        ${item.name} <br>
+        ₹${item.price} x ${item.qty}
       </div>
     `;
   });
 
-  container.innerHTML += `
-    <div class="cart-total">Total: ₹${total}</div>
-    <button class="checkout-btn" onclick="checkout()">Place Order</button>
+  container.innerHTML+=`
+    <div class="total"><b>Total: ₹${total}</b></div>
   `;
 }
 
-function changeQty(index,change){
-  cart[index].qty += change;
-  if(cart[index].qty <= 0){
-    cart.splice(index,1);
+function placeOrder(){
+
+  const name=document.getElementById("name").value;
+  const mobile=document.getElementById("mobile").value;
+  const address=document.getElementById("address").value;
+
+  if(!name||!mobile||!address){
+    alert("Please fill all details");
+    return;
   }
-  localStorage.setItem("cart",JSON.stringify(cart));
-  renderCart();
-}
 
-function removeItem(index){
-  cart.splice(index,1);
-  localStorage.setItem("cart",JSON.stringify(cart));
-  renderCart();
-}
+  let total=cart.reduce((sum,item)=>sum+(item.price*item.qty),0);
 
-function checkout(){
-  let message = "Order Details:%0A";
+  let message="🛍 *New Order - Maheshbhai Store* %0A%0A";
+
+  message+=`👤 Name: ${name}%0A`;
+  message+=`📞 Mobile: ${mobile}%0A`;
+  message+=`🏠 Address: ${address}%0A%0A`;
+  message+="🧾 Order Details:%0A";
 
   cart.forEach(item=>{
-    message += `${item.name} - ${item.qty} x ₹${item.price}%0A`;
+    message+=`- ${item.name} (${item.qty}) = ₹${item.price*item.qty}%0A`;
   });
 
-  let total = cart.reduce((sum,item)=>sum+(item.price*item.qty),0);
-  message += `%0ATotal: ₹${total}`;
+  message+=`%0A💰 Total: ₹${total}`;
 
   window.open(`https://wa.me/91XXXXXXXXXX?text=${message}`,"_blank");
 }
 
 renderCart();
+
 </script>
 
 </body>
