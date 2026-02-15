@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Orders</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Poppins;background:#111;color:white;padding:20px;}
+.card{background:#222;padding:15px;margin:10px 0;border-radius:8px;}
+select{padding:5px;}
+</style>
+</head>
+<body>
+
+<h2>Orders Panel</h2>
+<div id="orders"></div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, getDocs, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAf8oqme5drWgAxCdaFnMPWSYszsHU2odE",
+  authDomain: "maheshbhai-store.firebaseapp.com",
+  projectId: "maheshbhai-store",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const container=document.getElementById("orders");
+
+async function loadOrders(){
+
+  const snapshot=await getDocs(collection(db,"orders"));
+
+  snapshot.forEach(orderDoc=>{
+    const order=orderDoc.data();
+
+    container.innerHTML+=`
+    <div class="card">
+      <b>${order.orderId}</b> <br>
+      ${order.customerName} - ${order.mobile} <br>
+      Area: ${order.area} <br>
+      Total: ₹${order.totalAmount} <br>
+      Status:
+      <select onchange="updateStatus('${orderDoc.id}',this.value)">
+        <option ${order.status=="Pending"?"selected":""}>Pending</option>
+        <option ${order.status=="Delivered"?"selected":""}>Delivered</option>
+      </select>
+    </div>
+    `;
+  });
+}
+
+window.updateStatus=async function(id,status){
+  await updateDoc(doc(db,"orders",id),{
+    status:status
+  });
+  alert("Status Updated");
+}
+
+loadOrders();
+
+</script>
+
+</body>
+</html>
