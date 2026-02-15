@@ -16,7 +16,7 @@ body{
 h2{text-align:center;}
 
 .container{
-  max-width:600px;
+  max-width:700px;
   margin:auto;
 }
 
@@ -25,17 +25,37 @@ h2{text-align:center;}
   padding:10px;
   margin:10px 0;
   border-radius:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-input,textarea{
+.qty-btn{
+  padding:4px 8px;
+  background:gold;
+  border:none;
+  cursor:pointer;
+  margin:0 5px;
+}
+
+.remove{
+  background:red;
+  border:none;
+  color:white;
+  padding:5px 8px;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+input,select,textarea{
   width:100%;
   padding:10px;
-  margin:10px 0;
+  margin:8px 0;
   border-radius:8px;
   border:none;
 }
 
-button{
+button.order-btn{
   width:100%;
   padding:12px;
   background:#25D366;
@@ -62,14 +82,37 @@ button{
 <div class="container" id="cartContainer"></div>
 
 <div class="container">
+
 <input type="text" id="name" placeholder="Full Name">
 <input type="text" id="mobile" placeholder="Mobile Number">
-<textarea id="address" placeholder="Delivery Address"></textarea>
 
-<button onclick="placeOrder()">Place Order on WhatsApp</button>
+<select id="area">
+<option value="">Select Delivery Area</option>
+<option value="Ganga Cypress">Ganga Cypress</option>
+<option value="Kharadi">Kharadi</option>
+<option value="Wagholi">Wagholi</option>
+<option value="Viman Nagar">Viman Nagar</option>
+</select>
+
+<textarea id="address" placeholder="Full Address"></textarea>
+
+<button class="order-btn" onclick="placeOrder()">Place Order on WhatsApp</button>
+
 </div>
 
-<script>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAf8oqme5drWgAxCdaFnMPWSYszsHU2odE",
+  authDomain: "maheshbhai-store.firebaseapp.com",
+  projectId: "maheshbhai-store",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 const container = document.getElementById("cartContainer");
@@ -84,13 +127,21 @@ function renderCart(){
   let total=0;
   container.innerHTML="";
 
-  cart.forEach(item=>{
+  cart.forEach((item,index)=>{
     total+=item.price*item.qty;
 
     container.innerHTML+=`
       <div class="cart-item">
-        ${item.name} <br>
-        ₹${item.price} x ${item.qty}
+        <div>
+          ${item.name} <br>
+          ₹${item.price} x ${item.qty}
+        </div>
+        <div>
+          <button class="qty-btn" onclick="changeQty(${index},-1)">-</button>
+          ${item.qty}
+          <button class="qty-btn" onclick="changeQty(${index},1)">+</button>
+          <button class="remove" onclick="removeItem(${index})">X</button>
+        </div>
       </div>
     `;
   });
@@ -100,25 +151,51 @@ function renderCart(){
   `;
 }
 
-function placeOrder(){
+window.changeQty=function(index,change){
+  cart[index].qty+=change;
+  if(cart[index].qty<=0) cart.splice(index,1);
+  localStorage.setItem("cart",JSON.stringify(cart));
+  renderCart();
+}
+
+window.removeItem=function(index){
+  cart.splice(index,1);
+  localStorage.setItem("cart",JSON.stringify(cart));
+  renderCart();
+}
+
+window.placeOrder=async function(){
 
   const name=document.getElementById("name").value;
   const mobile=document.getElementById("mobile").value;
+  const area=document.getElementById("area").value;
   const address=document.getElementById("address").value;
 
-  if(!name||!mobile||!address){
+  if(!name||!mobile||!area||!address){
     alert("Please fill all details");
     return;
   }
 
   let total=cart.reduce((sum,item)=>sum+(item.price*item.qty),0);
+  let orderId="ORD"+Date.now();
 
-  let message="🛍 *New Order - Maheshbhai Store* %0A%0A";
+  // Save in Firestore
+  await addDoc(collection(db,"orders"),{
+    orderId:orderId,
+    customerName:name,
+    mobile:mobile,
+    area:area,
+    address:address,
+    items:cart,
+    totalAmount:total,
+    status:"Pending",
+    date:new Date()
+  });
 
-  message+=`👤 Name: ${name}%0A`;
-  message+=`📞 Mobile: ${mobile}%0A`;
-  message+=`🏠 Address: ${address}%0A%0A`;
-  message+="🧾 Order Details:%0A";
+  // WhatsApp Message
+  let message=`🛍 *New Order* %0A%0A`;
+  message+=`🆔 Order ID: ${orderId}%0A`;
+  message+=`👤 ${name}%0A📞 ${mobile}%0A📍 ${area}%0A🏠 ${address}%0A%0A`;
 
   cart.forEach(item=>{
     message+=`- ${item.name} (${item.qty}) = ₹${item.price*item.qty}%0A`;
@@ -127,6 +204,8 @@ function placeOrder(){
   message+=`%0A💰 Total: ₹${total}`;
 
   window.open(`https://wa.me/918149777658?text=${message}`,"_blank");
+
+  localStorage.removeItem("cart");
 }
 
 renderCart();
