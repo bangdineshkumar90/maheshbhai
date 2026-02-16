@@ -3,58 +3,52 @@
 <head>
   <title>Admin Panel - Maheshbhai Store</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="CSS/style.css">
 
   <style>
-    body {
-      font-family: Arial;
-      background: #111;
-      color: white;
-      text-align: center;
-      margin: 0;
+    .admin-container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .form-box {
+      background: #1a1a1a;
       padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
     }
 
-    h2 {
-      color: gold;
-    }
-
-    input {
+    .form-box input {
+      margin: 5px;
       padding: 8px;
-      margin: 5px;
-      border-radius: 5px;
-      border: none;
+      width: 160px;
     }
-
-    button {
-      padding: 8px 12px;
-      margin: 5px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .add-btn { background: gold; }
-    .delete-btn { background: crimson; color: white; }
-    .update-btn { background: dodgerblue; color: white; }
 
     .product-box {
       background: #222;
-      margin: 15px auto;
       padding: 15px;
-      width: 300px;
       border-radius: 10px;
+      margin: 15px 0;
     }
+
+    .delete-btn { background: crimson; color: white; }
+    .update-btn { background: dodgerblue; color: white; }
+    .add-btn { background: gold; }
   </style>
 </head>
 
 <body>
 
-<h2>Admin Dashboard</h2>
+<div class="admin-container">
 
-<div>
+<h2 style="color:gold;">Admin Dashboard</h2>
+
+<div class="form-box">
   <input type="text" id="name" placeholder="Product Name">
   <input type="number" id="price" placeholder="Price">
   <input type="number" id="discount" placeholder="Discount Price">
+  <input type="number" id="stock" placeholder="Stock Quantity">
+  <input type="text" id="category" placeholder="Category">
   <input type="text" id="image" placeholder="Image file name (ganpati.jpg)">
   <label>
     Offer <input type="checkbox" id="offer">
@@ -67,6 +61,8 @@
 
 <h3>All Products</h3>
 <div id="product-list"></div>
+
+</div>
 
 <script type="module">
 
@@ -86,32 +82,34 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-const ADMIN_EMAIL = "bangdineshkumar90@gmail.com"; // exact same email
+const ADMIN_EMAIL = "bangdineshkumar90@gmail.com";
 
 onAuthStateChanged(auth, (user) => {
-
   if (!user) {
     window.location.href = "admin-login.html";
     return;
   }
 
-  console.log("Logged in user:", user.email);
-
   if (user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
     alert("Access Denied");
     window.location.href = "admin-login.html";
   }
-
 });
 
-// ➕ Add Product
+// ➕ Add Product (NOW WITH STOCK)
 window.addProduct = async function () {
+
+  const stockValue = Number(document.getElementById("stock").value);
+
   await addDoc(collection(db, "products"), {
     name: document.getElementById("name").value,
     price: Number(document.getElementById("price").value),
     discountPrice: Number(document.getElementById("discount").value),
+    stock: stockValue || 0,
+    category: document.getElementById("category").value || "General",
     image: document.getElementById("image").value,
-    offer: document.getElementById("offer").checked
+    offer: document.getElementById("offer").checked,
+    createdAt: new Date()
   });
 
   alert("Product Added!");
@@ -128,13 +126,24 @@ async function loadProducts() {
     const data = docSnap.data();
     const id = docSnap.id;
 
+    const stockValue = Number(data.stock || 0);
+
     container.innerHTML += `
       <div class="product-box">
         <h4>${data.name}</h4>
         <p>Price: ₹${data.price}</p>
         <p>Discount: ₹${data.discountPrice}</p>
+        <p>Stock: 
+          <input type="number" value="${stockValue}" 
+          onchange="updateStock('${id}', this.value)">
+        </p>
+        <p>Category: ${data.category || "General"}</p>
         <p>Offer: ${data.offer ? "Yes" : "No"}</p>
-        <button class="delete-btn" onclick="deleteProduct('${id}')">Delete</button>
+
+        <button class="delete-btn" onclick="deleteProduct('${id}')">
+          Delete
+        </button>
+
         <button class="update-btn" onclick="toggleOffer('${id}', ${!data.offer})">
           Toggle Offer
         </button>
@@ -146,8 +155,7 @@ async function loadProducts() {
 // ❌ Delete Product
 window.deleteProduct = async function (id) {
   await deleteDoc(doc(db, "products", id));
-  alert("Deleted!");
-  location.reload();
+  loadProducts();
 };
 
 // 🔄 Toggle Offer
@@ -155,8 +163,14 @@ window.toggleOffer = async function (id, value) {
   await updateDoc(doc(db, "products", id), {
     offer: value
   });
-  alert("Updated!");
-  location.reload();
+  loadProducts();
+};
+
+// 🔢 Update Stock
+window.updateStock = async function (id, value) {
+  await updateDoc(doc(db, "products", id), {
+    stock: Number(value)
+  });
 };
 
 loadProducts();
